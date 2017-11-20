@@ -4,6 +4,10 @@ import br.com.mercado.itemservice.model.Item;
 import br.com.mercado.itemservice.model.Usuario;
 import br.com.mercado.itemservice.service.ItemService;
 import br.com.mercado.itemservice.service.UsuarioService;
+import br.com.mercado.itemservice.util.UserContext;
+import br.com.mercado.itemservice.util.UserContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/itens")
 public class ItemController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
     @Autowired
     private ItemService itemService;
@@ -53,6 +59,7 @@ public class ItemController {
 
     @GetMapping("/usuarios/buscar/{username}")
     public Usuario buscarUsuario(@PathVariable String username) {
+        logger.debug("ItemServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return itemService.getUsuarioByUsername(username);
     }
 

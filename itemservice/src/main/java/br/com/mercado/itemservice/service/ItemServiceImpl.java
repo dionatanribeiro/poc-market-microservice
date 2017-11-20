@@ -4,6 +4,7 @@ import br.com.mercado.itemservice.client.UsuarioFeignClient;
 import br.com.mercado.itemservice.model.Item;
 import br.com.mercado.itemservice.model.Usuario;
 import br.com.mercado.itemservice.repository.ItemRepository;
+import br.com.mercado.itemservice.util.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.slf4j.Logger;
@@ -87,24 +88,26 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @HystrixCommand(
-            fallbackMethod = "buildFallbackUsuario",
-            threadPoolKey = "itemByUsuarioThreadPool",
-            threadPoolProperties = {
-                    @HystrixProperty(name="coreSize", value="30"),
-                    // (requests per second at peak when the service is healthy * 99th percentile lantency in seconds) +
-                    // small amount of extra threads for overhead
-                    @HystrixProperty(name="maxQueueSize", value="10")
-            }
+//    @HystrixCommand(
+//            fallbackMethod = "buildFallbackUsuario",
+//            threadPoolKey = "itemByUsuarioThreadPool",
+//            threadPoolProperties = {
+//                    @HystrixProperty(name="coreSize", value="30"),
+//                    // (requests per second at peak when the service is healthy * 99th percentile lantency in seconds) +
+//                    // small amount of extra threads for overhead
+//                    @HystrixProperty(name="maxQueueSize", value="10")
+//            }
 //    commandProperties = {
 //            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "12000")
 //    }
-    )
+//    )
     public Usuario getUsuarioByUsername(String username) {
 //        return usuarioService.getUsuarioByUsername(username);
 
 //        utilizado para teste de erro aleatorio
 //        randomRunLong();
+
+        logger.debug("ItemService.getUsuarioByUsername Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
         return usuarioFeignClient.buscarUsuarioPorUsername(username);
     }

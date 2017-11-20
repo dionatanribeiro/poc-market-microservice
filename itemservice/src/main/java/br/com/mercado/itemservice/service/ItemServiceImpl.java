@@ -1,5 +1,6 @@
 package br.com.mercado.itemservice.service;
 
+import br.com.mercado.itemservice.client.UserTemplateClient;
 import br.com.mercado.itemservice.client.UsuarioFeignClient;
 import br.com.mercado.itemservice.model.Item;
 import br.com.mercado.itemservice.model.Usuario;
@@ -30,6 +31,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private UsuarioFeignClient usuarioFeignClient;
+
+    @Autowired
+    private UserTemplateClient userTemplateClient;
 
     @Override
     public Item adicionarItemPorUsuario(Item item, String username) {
@@ -109,7 +113,8 @@ public class ItemServiceImpl implements ItemService {
 
         logger.debug("ItemService.getUsuarioByUsername Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
 
-        return usuarioFeignClient.buscarUsuarioPorUsername(username);
+//        return usuarioFeignClient.buscarUsuarioPorUsername(username);
+        return userTemplateClient.getUsuario(username);
     }
 
     private void randomRunLong() {

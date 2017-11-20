@@ -1,7 +1,6 @@
 package br.com.mercado.itemservice.client;
 
 import br.com.mercado.itemservice.model.Usuario;
-import br.com.mercado.itemservice.util.UserContext;
 import br.com.mercado.itemservice.util.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

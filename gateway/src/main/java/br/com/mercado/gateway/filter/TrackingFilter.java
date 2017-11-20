@@ -50,6 +50,7 @@ public class TrackingFilter extends ZuulFilter {
         if (isCorrelationIdPresent()) {
             logger.debug("is-correlation-id found in tracking filter: {}", filterUtils.getCorrelationId());
         } else {
+            filterUtils.setCorrelationId(generateCorrelationId());
             logger.debug("is-correlation-id generated in tracking filter: {}", filterUtils.getCorrelationId());
         }
 

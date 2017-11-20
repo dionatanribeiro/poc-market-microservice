@@ -102,7 +102,9 @@ public class ItemServiceImpl implements ItemService {
     )
     public Usuario getUsuarioByUsername(String username) {
 //        return usuarioService.getUsuarioByUsername(username);
-        randomRunLong();
+
+//        utilizado para teste de erro aleatorio
+//        randomRunLong();
 
         return usuarioFeignClient.buscarUsuarioPorUsername(username);
     }

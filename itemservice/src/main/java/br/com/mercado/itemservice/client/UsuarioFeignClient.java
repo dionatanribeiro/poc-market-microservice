@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient("userservice")
-@RequestMapping("/v1/usuarios")
+//@FeignClient("userservice")
+@FeignClient(name = "mercado-gateway")
+@RequestMapping("/api/userservice/v1/usuarios")
 public interface UsuarioFeignClient {
 
     @GetMapping("/{username}")

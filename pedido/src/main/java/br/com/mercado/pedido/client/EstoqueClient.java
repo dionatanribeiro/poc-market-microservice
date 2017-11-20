@@ -15,9 +15,9 @@ import java.util.List;
 public interface EstoqueClient {
 
     @GetMapping("/produtos/{id}")
-    public ProdutoApiDto buscarProdutoPorId(@PathVariable("id") Long id);
+    ProdutoApiDto buscarProdutoPorId(@PathVariable("id") Long id);
 
     @GetMapping("/produtos")
-    public List<ProdutoApiDto> buscarTodosProduto();
+    List<ProdutoApiDto> buscarTodosProduto();
 
 }
